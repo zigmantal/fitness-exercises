@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>האימונים של נועם 💪</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --card: #111111;
+    --card-border: #1e1e1e;
+    --neon: #39ff14;
+    --neon-glow: 0 0 18px rgba(57,255,20,0.45), 0 0 40px rgba(57,255,20,0.15);
+    --gold: #FFD700;
+    --text: #efefef;
+    --muted: #555;
+    --muted2: #333;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Heebo', Arial, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(57,255,20,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,20,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 16px 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: 40px 0 28px;
+  }
+
+  .hdr-emoji {
+    display: block;
+    font-size: 58px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 14px rgba(57,255,20,0.55));
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50%      { transform: scale(1.1); }
+  }
+
+  header h1 {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--neon);
+    text-shadow: var(--neon-glow);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  header p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 1px;
+  }
+
+  /* ── PROGRESS ── */
+  .prog-wrap {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+
+  .prog-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .prog-row span:first-child { font-size: 13px; color: var(--muted); }
+  .prog-count { font-size: 17px; font-weight: 700; color: var(--neon); }
+
+  .prog-track {
+    height: 10px;
+    background: #1a1a1a;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #39ff14, #a8ff78);
+    border-radius: 99px;
+    width: 0%;
+    transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 10px rgba(57,255,20,0.5);
+  }
+
+  /* ── CELEBRATION ── */
+  .celebrate {
+    display: none;
+    background: linear-gradient(135deg, #162600, #0d1a00);
+    border: 2px solid var(--neon);
+    border-radius: 22px;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 24px;
+    box-shadow: var(--neon-glow);
+  }
+  .celebrate.show { display: block; animation: popin 0.5s cubic-bezier(0.34,1.56,0.64,1); }
+  .celebrate h2 { font-size: 24px; font-weight: 900; color: var(--neon); margin: 12px 0 8px; }
+  .celebrate p  { font-size: 14px; color: var(--muted); }
+
+  @keyframes popin {
+    from { transform: scale(0.75); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+
+  /* ── LOADING ── */
+  .loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--neon);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--muted2);
+    border-top-color: var(--neon);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1.5px solid var(--card-border);
+    border-radius: 24px;
+    padding: 22px 18px;
+    margin-bottom: 18px;
+    opacity: 0;
+    transform: translateY(28px);
+    animation: slideup 0.45s ease forwards;
+    transition: border-color 0.4s, box-shadow 0.4s, background 0.4s;
+  }
+
+  @keyframes slideup {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card.done {
+    border-color: var(--neon);
+    box-shadow: 0 0 22px rgba(57,255,20,0.09);
+    background: rgba(57,255,20,0.025);
+  }
+
+  .card-hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    flex: 1;
+    line-height: 1.25;
+  }
+
+  .done-badge {
+    display: none;
+    font-size: 24px;
+    margin-right: 8px; /* RTL: left side */
+    flex-shrink: 0;
+  }
+  .card.done .done-badge { display: block; animation: popin 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+
+  .difficulty {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .difficulty .stars { color: var(--gold); }
+
+  /* hint bar */
+  .hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #161616;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    direction: rtl;
+  }
+  .hint-dot { width: 8px; height: 8px; background: #ff0050; border-radius: 50%; flex-shrink: 0; }
+
+  /* video buttons */
+  .videos { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+
+  .vbtn {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: #181818;
+    border: 1px solid #252525;
+    border-radius: 14px;
+    padding: 13px 14px;
+    text-decoration: none;
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    cursor: pointer;
+  }
+
+  .vbtn:active {
+    transform: scale(0.965);
+    background: #1e1e1e;
+    border-color: var(--neon);
+  }
+
+  .vicon {
+    width: 44px; height: 44px;
+    background: #202020;
+    border: 1px solid #2e2e2e;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .vinfo { flex: 1; text-align: right; }
+  .vname { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.3; }
+  .vsub  { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+  .varrow { color: var(--neon); font-size: 15px; flex-shrink: 0; }
+
+  /* done button */
+  .btn-done {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 2px solid var(--neon);
+    border-radius: 14px;
+    color: var(--neon);
+    font-family: 'Heebo', Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: color 0.22s;
+  }
+
+  .btn-done::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--neon);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.22s ease;
+    z-index: 0;
+  }
+
+  .btn-done .bt { position: relative; z-index: 1; }
+
+  .btn-done:not(:disabled):active::after { transform: scaleX(1); }
+  .btn-done:not(:disabled):active .bt    { color: #000; }
+
+  .btn-done:disabled {
+    border-color: #282828;
+    color: var(--muted);
+    cursor: default;
+  }
+  .btn-done:disabled::after { display: none; }
+
+  .done-msg {
+    display: none;
+    text-align: center;
+    color: var(--neon);
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 10px;
+    animation: fadein 0.4s ease;
+  }
+  .card.done .done-msg { display: block; }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* reset */
+  .reset-btn {
+    display: block;
+    margin: 16px auto 0;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: 'Heebo', Arial, sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 8px;
+  }
+
+  /* confetti */
+  .confetti-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 999; }
+  .cp {
+    position: absolute;
+    top: -12px;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ── TO SWITCH TO GOOGLE SHEET LATER ──
+     Replace the CSV_DATA const below with:
+     const SHEET_URL = "YOUR_PUBLISHED_CSV_URL";
+     and use: const text = await fetch(SHEET_URL).then(r => r.text());
+  */
+</style>
+</head>
+<body>
+
+<div class="confetti-wrap" id="confetti"></div>
+
+<div class="page">
+
+  <header>
+    <span class="hdr-emoji">💪</span>
+    <h1>האימונים של נועם</h1>
+    <p>@fritzfitness2 • FRITZ FITNESS</p>
+  </header>
+
+  <div class="prog-wrap">
+    <div class="prog-row">
+      <span>התקדמות שלך</span>
+      <span class="prog-count" id="prog-count">0/0 אימונים</span>
+    </div>
+    <div class="prog-track">
+      <div class="prog-fill" id="prog-fill"></div>
+    </div>
+  </div>
+
+  <div class="celebrate" id="celebrate">
+    <div style="font-size:46px">🏆🔥🏆</div>
+    <h2>כל הכבוד נועם!</h2>
+    <p>השלמת את כל האימונים — אתה מכונה! 💪</p>
+  </div>
+
+  <div id="cards-wrap">
+    <div class="loading">
+      <div class="spinner"></div>
+      טוען אימונים... 💪
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">🔄 אפס הכל מחדש</button>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// TO SWITCH TO GOOGLE SHEET:
+// 1. Delete the CSV_DATA block below
+// 2. Uncomment the fetchData() function at the bottom
+// 3. Paste your published CSV URL into SHEET_URL
+// ─────────────────────────────────────────────
+
+const CSV_DATA = `card_id,card_title_he,card_emoji,card_difficulty,video_emoji,video_title_he,video_url,video_subtitle_en
+1,בטן ופלג גוף עליון,🔥,3,🔥,בטן תחתונה בבית,https://www.tiktok.com/@fritzfitness2/video/7496604981097696558,Lower Abs Workout At Home
+1,בטן ופלג גוף עליון,🔥,3,💀,אימון בטן אינטנסיבי,https://www.tiktok.com/@fritzfitness2/video/7492133509352394026,Intense Abs Workout At Home
+1,בטן ופלג גוף עליון,🔥,3,⏱️,בטן למתחילים,https://www.tiktok.com/@fritzfitness2/video/7436591919901183275,Beginner Abs Workout
+2,חזה וזרועות,💪,3,🤜,מדריך שכיבות שמיכה,https://www.tiktok.com/@fritzfitness2/video/7486215745118948654,How To Do Pushups Step By Step
+2,חזה וזרועות,💪,3,🏠,אימון חזה מלא בבית,https://www.tiktok.com/@fritzfitness2/video/7489180033605668142,Complete Chest Workout At Home
+2,חזה וזרועות,💪,3,🎯,אילו שרירים שכיבות שמיכה מפעילות?,https://www.tiktok.com/@fritzfitness2/video/7489557899631512874,Pushup Muscles Target
+3,רגליים ופלג גוף תחתון,🦵,2,🏡,אימון רגליים קל בבית,https://www.tiktok.com/@fritzfitness2/video/7491036998937972010,Easy Leg Workout At Home
+3,רגליים ופלג גוף תחתון,🦵,2,💥,אימון חזה ורגליים,https://www.tiktok.com/@fritzfitness2/video/7504770973879602478,Chest & Leg Workout
+3,רגליים ופלג גוף תחתון,🦵,2,🏃,קרדיו לשריפת שומן,https://www.tiktok.com/@fritzfitness2/video/7491408652361026862,Cardio For Weight Loss
+4,קרדיו וגוף מלא,🏃,2,⚡,קרדיו אינטנסיבי לשריפת שומן,https://www.tiktok.com/@fritzfitness2/video/7488815474223140142,Effective Weight Loss Exercise
+4,קרדיו וגוף מלא,🏃,2,🌱,קרדיו למתחילים,https://www.tiktok.com/@fritzfitness2/video/7489911100645985582,Beginner Friendly Cardio
+4,קרדיו וגוף מלא,🏃,2,💪,אימון גב יעיל בבית,https://www.tiktok.com/@fritzfitness2/video/7500336881331113259,Easy Effective Back Workout`;
+
+// ── STORAGE ──
+const STORAGE_KEY = 'noam_workouts_v3';
+let doneState = {}; // { "1": true, "2": false, ... }
+let cards = [];     // parsed card objects
+let celebrationFired = false;
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (s && typeof s === 'object') doneState = s;
+  } catch(e) {}
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(doneState));
+}
+
+// ── CSV PARSING ──
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) { // skip header
+    const line = lines[i].trim();
+    if (!line) continue;
+    // Handle quoted fields
+    const cols = [];
+    let cur = '', inQuote = false;
+    for (let c = 0; c < line.length; c++) {
+      const ch = line[c];
+      if (ch === '"') { inQuote = !inQuote; }
+      else if (ch === ',' && !inQuote) { cols.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur.trim());
+    if (cols.length >= 8) rows.push(cols);
+  }
+  return rows;
+}
+
+function buildCards(rows) {
+  const map = {};
+  for (const r of rows) {
+    const [id, title_he, emoji, diff, v_emoji, v_title_he, v_url, v_sub] = r;
+    if (!map[id]) map[id] = { id, title_he, emoji, diff: parseInt(diff)||1, videos: [] };
+    map[id].videos.push({ emoji: v_emoji, title_he: v_title_he, url: v_url, sub: v_sub });
+  }
+  return Object.values(map);
+}
+
+// ── RENDER ──
+function diffLabel(n) {
+  if (n >= 3) return 'מאתגר';
+  if (n === 2) return 'בינוני';
+  return 'קל';
+}
+
+function renderCards() {
+  const wrap = document.getElementById('cards-wrap');
+  wrap.innerHTML = '';
+
+  cards.forEach((card, idx) => {
+    const isDone = !!doneState[card.id];
+    const stars = '⭐'.repeat(card.diff);
+
+    const videoButtons = card.videos.map(v => `
+      <a class="vbtn" href="${v.url}" target="_blank" rel="noopener">
+        <div class="vicon">${v.emoji}</div>
+        <div class="vinfo">
+          <div class="vname">${v.title_he}</div>
+          <div class="vsub">${v.sub}</div>
+        </div>
+        <div class="varrow">▶</div>
+      </a>
+    `).join('');
+
+    const cardEl = document.createElement('div');
+    cardEl.className = 'card' + (isDone ? ' done' : '');
+    cardEl.id = 'card-' + card.id;
+    cardEl.style.animationDelay = (idx * 0.08) + 's';
+    cardEl.innerHTML = `
+      <div class="card-hdr">
+        <div class="card-title">${card.emoji} ${card.title_he}</div>
+        <div class="done-badge">✅</div>
+      </div>
+      <div class="difficulty">
+        <span class="stars">${stars}</span>&nbsp; ${diffLabel(card.diff)}
+      </div>
+      <div class="hint">
+        <div class="hint-dot"></div>
+        לחץ על סרטון כדי לפתוח אותו ב-TikTok
+      </div>
+      <div class="videos">${videoButtons}</div>
+      <button class="btn-done" onclick="markDone('${card.id}')" ${isDone ? 'disabled' : ''}>
+        <span class="bt">${isDone ? '🏆 הושלם!' : '✅ סיימתי את האימון!'}</span>
+      </button>
+      <div class="done-msg">כל הכבוד נועם! 🏆</div>
+    `;
+    wrap.appendChild(cardEl);
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = cards.length;
+  const done  = cards.filter(c => doneState[c.id]).length;
+  document.getElementById('prog-count').textContent = done + '/' + total + ' אימונים';
+  document.getElementById('prog-fill').style.width = total ? (done / total * 100) + '%' : '0%';
+
+  const cel = document.getElementById('celebrate');
+  if (done === total && total > 0 && !celebrationFired) {
+    cel.classList.add('show');
+    burst(80);
+    celebrationFired = true;
+  } else if (done < total) {
+    cel.classList.remove('show');
+    celebrationFired = false;
+  }
+}
+
+function markDone(id) {
+  if (doneState[id]) return;
+  doneState[id] = true;
+  saveState();
+  burst(14);
+
+  // update card in place
+  const cardEl = document.getElementById('card-' + id);
+  if (cardEl) {
+    cardEl.classList.add('done');
+    const btn = cardEl.querySelector('.btn-done');
+    btn.disabled = true;
+    btn.querySelector('.bt').textContent = '🏆 הושלם!';
+  }
+  updateProgress();
+}
+
+function resetAll() {
+  if (!confirm('לאפס את כל ההתקדמות של נועם?')) return;
+  doneState = {};
+  celebrationFired = false;
+  saveState();
+  renderCards();
+}
+
+// ── CONFETTI ──
+function burst(n) {
+  const wrap = document.getElementById('confetti');
+  const colors = ['#39ff14','#FFD700','#ff4136','#0074d9','#ff69b4','#fff'];
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement('div');
+    el.className = 'cp';
+    const size = 7 + Math.random() * 10;
+    el.style.cssText = `
+      left: ${Math.random()*100}%;
+      width: ${size}px; height: ${size}px;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '3px'};
+      animation-duration: ${1.3 + Math.random()*2}s;
+      animation-delay: ${Math.random()*0.5}s;
+    `;
+    wrap.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+// ── INIT ──
+const SHEET_URL = "https://raw.githubusercontent.com/zigmantal/fitness-exercises/main/noam-p.csv";
+
+async function init() {
+  loadState();
+  try {
+    const text = await fetch(SHEET_URL).then(r => r.text());
+    const rows = parseCSV(text);
+    cards = buildCards(rows);
+    renderCards();
+  } catch(e) {
+    // fallback to hardcoded data if fetch fails
+    const rows = parseCSV(CSV_DATA);
+    cards = buildCards(rows);
+    renderCards();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
